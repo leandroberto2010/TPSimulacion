@@ -11,6 +11,14 @@ if len(sys.argv) != 3 or sys.argv[1] != "-n":
 num_valores = int(sys.argv[2])"""
 #Ingreso por consola de parámetros para la simulación (cantidad de tiradas, corridas y número elegido, Ejemplo python -c XXX -n YYY -e ZZ).
 
+"""
+Para permitir que los usuarios ingresen los parámetros por la consola en un programa Python, se debe utilizar 
+el módulo "argparse", que facilita el análisis de argumentos de línea de comandos. 
+import argparse
+"""
+
+
+
 values=[]
 
 def abs_freq(x):
