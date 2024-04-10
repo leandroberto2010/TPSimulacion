@@ -43,7 +43,6 @@ yp = np.mean(promedios_all, axis=0)
 yv = np.mean(varianzas_all, axis=0)
 
 # Graficar los resultados individuales
-#for std_devs, frecuencias, promedios, varianzas in zip(std_devs_all, frecuencias_all, promedios_all, varianzas_all):
 fig, axs = plt.subplots(2, 2)
 
 # Graficar Desvío Estándar
