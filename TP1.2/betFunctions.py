@@ -10,6 +10,7 @@ def jugar(n):
 
   #Siempre al doble y si ganas vuelves a empezar
 def martingala(): 
+    print("--------Martingala--------")
     p = 100  # Presupuesto inicial
     apuesta = 1    # Apuesta inicial
     while p >= apuesta:
@@ -25,6 +26,7 @@ def martingala():
     
 
 def dalambert(): #Monto base y si pierde aumenta en uno, si gana reduce en uno
+      print("--------dalambert--------")
       p = 100  # Presupuesto inicial
       apuesta = 1    # Apuesta inicial
       while p >= apuesta:
@@ -39,6 +41,7 @@ def dalambert(): #Monto base y si pierde aumenta en uno, si gana reduce en uno
             apuesta = apuesta+1  # Si pierdes, duplicas la apuesta
 
 def fibonacci():#1,1,2,3,5 el siguiente numero es la suma de los dos anteriores 
+      print("--------fibonacci--------")
       p = 100  # Presupuesto inicial
       apuesta = 1    # Apuesta inicial
       a1 =0 #apuesta anterior del anteior
@@ -53,12 +56,10 @@ def fibonacci():#1,1,2,3,5 el siguiente numero es la suma de los dos anteriores
         sa = apuesta+a1
         a1 = apuesta
         apuesta = sa
-        
-
-
-            
+    
 
 def suicida(): #juego el 65% de lo que tengo, si pierdo apuesto el 100% de lo que tengo, si gano apuesto el 65% de lo que tengo
+      print("--------suicida--------")
       p = 100  # Presupuesto inicial
       apuesta = p*0.65    # Apuesta inicial
       while p >= apuesta:
@@ -75,7 +76,10 @@ def suicida(): #juego el 65% de lo que tengo, si pierdo apuesto el 100% de lo qu
                 
             
             
-            
-            
+martingala()
+
+dalambert()
+
+fibonacci()
 
 suicida()
