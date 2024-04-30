@@ -1,5 +1,28 @@
-"""Para importar este modulo from betFunctions import funcionesAImportar"""
+
 import random
+import sys
+import numpy as np
+import matplotlib.pyplot as plt
+
+#------------------------------Constantes---------------------------------------------------
+s = "o" #La estrategia utilizada: m (martingala), d (D’Alambert), f (Fibonacci) y o (Suicida)
+a = "f" #El tipo de capital: i (infinito), f (finito).
+YYY=1
+XXX=100
+
+cfi = 100  #Cafital finito inicial
+#-------------------------------------------------------------------------------------------
+
+capital_money=[]
+
+
+def tipocapital(a):
+    if(a=="i"):
+        return float('inf')
+    else:
+        global cfi
+        return cfi
+
 
 def jugar(n): #Estrategia por color
     na = random.randint(0, 36)
@@ -23,10 +46,15 @@ def jugar(n): #Estrategia por color
 
   #Siempre al doble y si ganas vuelves a empezar
 def martingala(): 
-    print("--------Martingala--------")
-    p = 100  # Presupuesto inicial
+    
+    
+    p = tipocapital(a)   # Presupuesto inicial
     apuesta = 1    # Apuesta inicial
-    while p >= apuesta:
+    global XXX
+    r=0
+    while p >= apuesta and XXX != r:
+        r +=1
+        capital_money.append(p)
         resultado = jugar(apuesta)
         print(f"Presupuesto: {p}, Apuesta: {apuesta}, Resultado: {'Gana' if resultado else 'Pierde'}")
         
@@ -39,10 +67,15 @@ def martingala():
     
 
 def dalambert(): #Monto base y si pierde aumenta en uno, si gana reduce en uno
-      print("--------dalambert--------")
-      p = 100  # Presupuesto inicial
+      
+      
+      p = tipocapital(a)# Presupuesto inicial
       apuesta = 1    # Apuesta inicial
-      while p >= apuesta:
+      global XXX
+      r=0
+      while p >= apuesta and XXX != r:
+        r +=1
+        capital_money.append(p)
         resultado = jugar(apuesta)
         print(f"Presupuesto: {p}, Apuesta: {apuesta}, Resultado: {'Gana' if resultado else 'Pierde'}")
         
@@ -54,12 +87,17 @@ def dalambert(): #Monto base y si pierde aumenta en uno, si gana reduce en uno
             apuesta = apuesta+1  # Si pierdes, duplicas la apuesta
 
 def fibonacci():#1,1,2,3,5 el siguiente numero es la suma de los dos anteriores 
-      print("--------fibonacci--------")
-      p = 100  # Presupuesto inicial
+      
+      
+      p = tipocapital(a) # Presupuesto inicial
       apuesta = 1    # Apuesta inicial
       a1 =0 #apuesta anterior del anteior
       a2 =1 #apuesta anterior
-      while p >= apuesta:
+      global XXX
+      r=0
+      while p >= apuesta and XXX != r:
+        r +=1
+        capital_money.append(p)
         resultado = jugar(apuesta)
         print(f"Presupuesto: {p}, Apuesta: {apuesta}, Resultado: {'Gana' if resultado else 'Pierde'}")
         if resultado: 
@@ -72,10 +110,15 @@ def fibonacci():#1,1,2,3,5 el siguiente numero es la suma de los dos anteriores
     
 
 def suicida(): #juego el 65% de lo que tengo, si pierdo apuesto el 100% de lo que tengo, si gano apuesto el 65% de lo que tengo
-      print("--------suicida--------")
-      p = 100  # Presupuesto inicial
+      
+      
+      p = tipocapital(a)# Presupuesto inicial
       apuesta = p*0.65    # Apuesta inicial
-      while p >= apuesta:
+      global XXX
+      r=0
+      while p >= apuesta and XXX != r:
+        r +=1
+        capital_money.append(p)
         resultado = jugar(apuesta)
         print(f"Presupuesto: {p}, Apuesta: {apuesta}, Resultado: {'Gana' if resultado else 'Pierde'}")
         
@@ -89,10 +132,43 @@ def suicida(): #juego el 65% de lo que tengo, si pierdo apuesto el 100% de lo qu
                 
             
             
-martingala()
+def strategy(l):
+    global title
+    if(l=="m"): title="Martingala"
 
-dalambert()
+    elif(l=="d"): title="Dalambert"
 
-fibonacci()
+    elif(l=="f"): title="Fibonacci"
 
-suicida()
+    elif(l=="o"): title="Suicida"
+
+    else: title="Error"
+
+    print(f"------------{title}------------")
+
+
+    for i in range(YYY):
+        if(l=="m"): martingala()
+
+        elif(l=="d"): dalambert()
+
+        elif(l=="f"): fibonacci()
+
+        elif(l=="o"): suicida()
+
+
+
+    
+
+if(s in ("m", "d", "f", "o")):
+    strategy(s)
+    #----Graficar------
+    promedio = np.mean(capital_money)
+    plt.plot(capital_money)
+    plt.axhline(y=promedio, color='red', linestyle='-', label='Promedio')
+    plt.xlabel('n (numero de tiradas)')
+    plt.ylabel('cc (cantidad de capital)')
+    plt.title(f"Gráfico de la estrategia {title}")
+    plt.legend()
+    plt.show()
+else: print(f"La estrategia elegida {s} no existe por favor intente nuevamente, estrategias m (martingala), d (D’Alambert), f (Fibonacci) y o (Suicida)")
