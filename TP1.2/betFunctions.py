@@ -1,12 +1,25 @@
 """Para importar este modulo from betFunctions import funcionesAImportar"""
 import random
 
-def jugar(n):
+def jugar(n): #Estrategia por color
     na = random.randint(0, 36)
-    if n == na:
-        return True
+    color_na = ""
+    color_n = ""
+    if (1 <= na <= 10) or (19 <= na <= 28):
+        color_na = "R"
+    elif na == 0:
+        color_na = "V"
     else:
-        return False
+        color_na = "N"
+    
+    if (1 <= n <= 10) or (19 <= n <= 28):
+        color_n = "R"
+    elif n == 0:
+        color_n = "V"
+    else:
+        color_n = "N"
+
+    return color_n == color_na
 
   #Siempre al doble y si ganas vuelves a empezar
 def martingala(): 
