@@ -166,22 +166,26 @@ if(s in ("m", "d", "f", "o")):
     fr = chosen_colors.count('R')/len(chosen_colors)
     fn = chosen_colors.count('N')/len(chosen_colors)
     #----Graficar------
+
+    fix, axs = plt.subplots(2)
     #Grafica de frecuencias
+
+
     categorias=['Rojo', 'Negro', 'Verde']
-    plt.bar(categorias, [fr, fn, fv], color=['red', 'black', 'green'])
-    plt.xlabel('Color')
-    plt.ylabel('Frecuencia')
-    plt.title('Frecuencia relativa')
+    axs[0].bar(categorias, [fr, fn, fv], color=['red', 'black', 'green'])
+    axs[0].set_xlabel('Color')
+    axs[0].set_ylabel('Frecuencia')
+    axs[0].set_title('Frecuencia relativa')
 
-    plt.show()
-    
 
+    #Grafica de capital
     promedio = np.mean(capital_money)
-    plt.plot(capital_money)
-    plt.axhline(y=cfi, color='red', linestyle='-', label='Promedio')
-    plt.xlabel('n (numero de tiradas)')
-    plt.ylabel('cc (cantidad de capital)')
-    plt.title(f"Gráfico de la estrategia {title}")
+    axs[1].plot(capital_money)
+    axs[1].axhline(y=cfi, color='red', linestyle='-', label='Promedio')
+    axs[1].set_xlabel('n (numero de tiradas)')
+    axs[1].set_ylabel('cc (cantidad de capital)')
+    axs[1].set_title(f"Gráfico de la estrategia {title}")
     plt.legend()
+    plt.tight_layout()
     plt.show()
 else: print(f"La estrategia elegida {s} no existe por favor intente nuevamente, estrategias m (martingala), d (D’Alambert), f (Fibonacci) y o (Suicida)")
