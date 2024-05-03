@@ -5,7 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 #------------------------------Constantes---------------------------------------------------
-s = "o" #La estrategia utilizada: m (martingala), d (D’Alambert), f (Fibonacci) y o (Suicida)
+s = "m" #La estrategia utilizada: m (martingala), d (D’Alambert), f (Fibonacci) y o (Suicida)
 a = "f" #El tipo de capital: i (infinito), f (finito).
 YYY=1
 XXX=100
@@ -14,6 +14,7 @@ cfi = 100  #Cafital finito inicial
 #-------------------------------------------------------------------------------------------
 
 capital_money=[]
+chosen_colors=[]
 
 
 def tipocapital(a):
@@ -34,6 +35,7 @@ def jugar(n): #Estrategia por color
         color_na = "V"
     else:
         color_na = "N"
+    chosen_colors.append(color_na)
     
     if (1 <= n <= 10) or (19 <= n <= 28):
         color_n = "R"
@@ -157,15 +159,26 @@ def strategy(l):
         elif(l=="o"): suicida()
 
 
-
-    
-
 if(s in ("m", "d", "f", "o")):
     strategy(s)
+    #Calculo de frecuencias relativas
+    fv = chosen_colors.count('V')/len(chosen_colors)
+    fr = chosen_colors.count('R')/len(chosen_colors)
+    fn = chosen_colors.count('N')/len(chosen_colors)
     #----Graficar------
+    #Grafica de frecuencias
+    categorias=['Rojo', 'Negro', 'Verde']
+    plt.bar(categorias, [fr, fn, fv], color=['red', 'black', 'green'])
+    plt.xlabel('Color')
+    plt.ylabel('Frecuencia')
+    plt.title('Frecuencia relativa')
+
+    plt.show()
+    
+
     promedio = np.mean(capital_money)
     plt.plot(capital_money)
-    plt.axhline(y=promedio, color='red', linestyle='-', label='Promedio')
+    plt.axhline(y=cfi, color='red', linestyle='-', label='Promedio')
     plt.xlabel('n (numero de tiradas)')
     plt.ylabel('cc (cantidad de capital)')
     plt.title(f"Gráfico de la estrategia {title}")
