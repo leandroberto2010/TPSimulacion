@@ -5,12 +5,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 #------------------------------Constantes---------------------------------------------------
-s = "m" #La estrategia utilizada: m (martingala), d (D’Alambert), f (Fibonacci) y o (Suicida)
+s = "d" #La estrategia utilizada: m (martingala), d (D’Alambert), f (Fibonacci) y o (Suicida)
 a = "f" #El tipo de capital: i (infinito), f (finito).
 YYY=1
-XXX=100
+XXX=1000
 
-cfi = 100  #Cafital finito inicial
+cfi = 1  #Cafital finito inicial
+ci = "Auto" #Color inicial "R" (Rojo), "V" (Verde), "N" (Negro), "Auto" (Automatico)
 #-------------------------------------------------------------------------------------------
 
 capital_money=[]
@@ -26,6 +27,7 @@ def tipocapital(a):
 
 
 def jugar(n): #Estrategia por color
+    
     na = random.randint(0, 36)
     color_na = ""
     color_n = ""
@@ -37,13 +39,21 @@ def jugar(n): #Estrategia por color
         color_na = "N"
     chosen_colors.append(color_na)
     
-    if (1 <= n <= 10) or (19 <= n <= 28):
-        color_n = "R"
-    elif n == 0:
-        color_n = "V"
-    else:
-        color_n = "N"
 
+  
+    global ci #Color inicial
+    if(ci=="R"):
+        color_n = "R"
+    elif(ci=="V"):
+        color_n = "V"
+    elif(ci=="N"):
+        color_n = "N"
+    else:
+        if chosen_colors:
+            counts = {color: chosen_colors.count(color) for color in {"R", "V", "N"}}
+            color_n = max(counts, key=counts.get)
+        else:
+            color_n = "R"
     return color_n == color_na
 
   #Siempre al doble y si ganas vuelves a empezar
@@ -72,7 +82,8 @@ def dalambert(): #Monto base y si pierde aumenta en uno, si gana reduce en uno
       
       
       p = tipocapital(a)# Presupuesto inicial
-      apuesta = 1    # Apuesta inicial
+      apuesta_inicial = 1
+      apuesta = apuesta_inicial    # Apuesta inicial
       global XXX
       r=0
       while p >= apuesta and XXX != r:
@@ -87,6 +98,9 @@ def dalambert(): #Monto base y si pierde aumenta en uno, si gana reduce en uno
         else: 
             p -= apuesta
             apuesta = apuesta+1  # Si pierdes, duplicas la apuesta
+        
+        if apuesta<=0:
+            apuesta = apuesta_inicial
 
 def fibonacci():#1,1,2,3,5 el siguiente numero es la suma de los dos anteriores 
       
