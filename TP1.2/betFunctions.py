@@ -5,12 +5,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 #------------------------------Constantes---------------------------------------------------
-s = "d" #La estrategia utilizada: m (martingala), d (D’Alambert), f (Fibonacci) y o (Suicida)
+s = "m" #La estrategia utilizada: m (martingala), d (D’Alambert), f (Fibonacci) y o (Suicida)
 a = "f" #El tipo de capital: i (infinito), f (finito).
 YYY=1
 XXX=1000
 
-cfi = 1  #Cafital finito inicial
+cfi = 100  #Cafital finito inicial
 ci = "Auto" #Color inicial "R" (Rojo), "V" (Verde), "N" (Negro), "Auto" (Automatico)
 #-------------------------------------------------------------------------------------------
 
