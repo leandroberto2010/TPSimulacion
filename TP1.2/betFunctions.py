@@ -27,11 +27,12 @@ def tipocapital(a):
 
 
 def jugar(n): #Estrategia por color
+    rojos={1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36}
     
     na = random.randint(0, 36)
     color_na = ""
     color_n = ""
-    if (1 <= na <= 10) or (19 <= na <= 28):
+    if (na in rojos):
         color_na = "R"
     elif na == 0:
         color_na = "V"
